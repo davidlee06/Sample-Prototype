@@ -40,9 +40,12 @@ const read_stuff_table_sql = "SELECT * FROM stuff";
 
 db.execute(read_stuff_table_sql, 
     (error, results) => {
-        if (error) 
-            throw error;
-
+        if (error)
+            res.status(500).send(error); //Internal Server Error
+        else if (results.length == 0)
+            res.status(404).send(`No item found with id = "${req.params.id}"` ); // NOT FOUND
+        else
+            res.send(results[0]); // results is still an array
         console.log("Table 'stuff' initialized with:")
         console.log(results);
     }

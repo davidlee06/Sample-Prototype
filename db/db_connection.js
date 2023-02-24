@@ -1,3 +1,4 @@
+const db = require('./db/db_connection');
 const dotenv = require('dotenv');
 
 dotenv.config();
