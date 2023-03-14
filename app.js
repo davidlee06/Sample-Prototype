@@ -11,6 +11,9 @@ app.set( "view engine", "ejs" );
 
 app.use(logger("dev"));
 
+// Configure Express to parse URL-encoded POST request bodies (traditional forms)
+app.use( express.urlencoded({ extended: false }) );
+
 // define middleware that serves static resources in the public directory
 app.use(express.static(__dirname + '/public'));
 
@@ -58,6 +61,62 @@ app.get( "/stuff/item/:id", ( req, res ) => {
         }
     });
 });
+
+const delete_item_sql = `
+    DELETE 
+    FROM
+        stuff
+    WHERE
+        id = ?
+`
+app.get("/stuff/item/:id/delete", ( req, res ) => {
+    db.execute(delete_item_sql, [req.params.id], (error, results) => {
+        if (error)
+            res.status(500).send(error); //Internal Server Error
+        else {
+            res.redirect("/stuff");
+        }
+    });
+})
+
+const create_item_sql = `
+    INSERT INTO stuff
+        (item, quantity)
+    VALUES
+        (?, ?)
+`
+app.post("/stuff", ( req, res ) => {
+    db.execute(create_item_sql, [req.body.name, req.body.quantity], (error, results) => {
+        if (error)
+            res.status(500).send(error); //Internal Server Error
+        else {
+            //results.insertId has the primary key (id) of the newly inserted element.
+            res.redirect(`/stuff/item/${results.insertId}`);
+        }
+    });
+})
+
+
+const update_item_sql = `
+    UPDATE
+        stuff
+    SET
+        item = ?,
+        quantity = ?,
+        description = ?
+    WHERE
+        id = ?
+`
+app.post("/stuff/item/:id", ( req, res ) => {
+    db.execute(update_item_sql, [req.body.name, req.body.quantity, req.body.description, req.params.id], (error, results) => {
+        if (error)
+            res.status(500).send(error); //Internal Server Error
+        else {
+            res.redirect(`/stuff/item/${req.params.id}`);
+        }
+    });
+})
+
 
 // start the server
 app.listen( port, () => {

@@ -44,7 +44,7 @@
                 <i class="material-icons right">edit</i>
                 Edit
             </a>
-            <a class="btn-large waves-effect waves-light red right">
+            <a class="btn-large waves-effect waves-light red right" href="/stuff/item/<%= id %>/delete">
                 <i class="material-icons right">delete</i>
                 Delete
             </a>
@@ -56,7 +56,7 @@
             <div class="modal-content">
 
                 <h2>Edit item:</h2>
-                <form>
+                <form method="post" action="/stuff/item/<%= id%>">
                     <div class="row">
                         <div class="input-field col s6">
                             <label for="nameInput">Item Name:</label>
@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="descriptionInput">Item Description:</label>
-                            <input type="text" name="description" id="descriptionInput" data-length="100">
+                            <input type="text" name="description" id="descriptionInput" data-length="100" value="<%= description%>">
                         </div>
                     </div>
                     <div class="modal-footer">

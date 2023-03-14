@@ -12,7 +12,7 @@ db.execute(create_stuff_table_sql);
 db.execute(insert_stuff_table_sql, ['Labs', '2', 'Labs can range in subjects from Chemistry to CS!']);
 db.execute(insert_stuff_table_sql, ['Readings', '3', 'Readings will inform you!']);
 db.execute(insert_stuff_table_sql, ['Projects', '1', 'Projects can have application based skills or even up to oral skills!']);
-db.execute(insert_stuff_table_sql, ['Essay', '54321', 'Write your thoughts!']);
+db.execute(insert_stuff_table_sql, ['Essay', '1', 'Write your thoughts!']);
 
 
 db.execute(read_stuff_table_sql, 
