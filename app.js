@@ -25,14 +25,16 @@ const read_stuff_all_sql = `
     FROM
         stuff
 `
+// define a route for the stuff inventory page
 app.get( "/stuff", ( req, res ) => {
     db.execute(read_stuff_all_sql, (error, results) => {
         if (error)
             res.status(500).send(error); //Internal Server Error
-        else
-            res.send(results[0]); // results is still an array
+        else {
+            res.render('stuff', { inventory : results });
+        }
     });
-});
+} );
 
 // define a route for the item detail page
 const read_item_sql = `

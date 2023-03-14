@@ -9,10 +9,10 @@ const read_stuff_table_sql = fs.readFileSync(__dirname + "/queries/init/read_stu
 db.execute(drop_stuff_table_sql);
 db.execute(create_stuff_table_sql);
 
-db.execute(insert_stuff_table_sql, ['Widgets', '5', 'Widgets are cool! You can do ... so many... different things... with them...']);
-db.execute(insert_stuff_table_sql, ['Gizmos', '100', null]);
-db.execute(insert_stuff_table_sql, ['Thingamajig', '12345', 'Not to be confused with a Thingamabob']);
-db.execute(insert_stuff_table_sql, ['Thingamabob', '54321', 'Not to be confused with a Thingamajig']);
+db.execute(insert_stuff_table_sql, ['Labs', '2', 'Labs can range in subjects from Chemistry to CS!']);
+db.execute(insert_stuff_table_sql, ['Readings', '3', 'Readings will inform you!']);
+db.execute(insert_stuff_table_sql, ['Projects', '1', 'Projects can have application based skills or even up to oral skills!']);
+db.execute(insert_stuff_table_sql, ['Essay', '54321', 'Write your thoughts!']);
 
 
 db.execute(read_stuff_table_sql, 
