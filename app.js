@@ -20,12 +20,6 @@ app.use( express.urlencoded({ extended: false }) );
 // define middleware that serves static resources in the public directory
 app.use(express.static(__dirname + '/public'));
 
-app.use((req, res, next) => {
-    res.locals.isLoggedIn = req.oidc.isAuthenticated();
-    res.locals.user = req.oidc.user;
-    next();
-})
-
 // CODE FROM AUTH0:
 const config = {
     authRequired: false,
@@ -37,6 +31,13 @@ const config = {
   };
   
 app.use(auth(config));
+
+app.use((req, res, next) => {
+    res.locals.isLoggedIn = req.oidc.isAuthenticated();
+    res.locals.user = req.oidc.user;
+    next();
+})
+
 
 app.get('/authtest', (req, res) => {
     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
